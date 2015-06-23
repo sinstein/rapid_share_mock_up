@@ -1,0 +1,18 @@
+<h2 align="center"> Listing Files </h2>
+<table align="center" cellpadding="5">
+  <tr>
+      <th align="left">Name</th>
+      <th align="left">Type</th>
+  </tr>
+  <% @attachments.each do |attachment| %>
+  <tr>
+    <td><%= attachment.name %></td>
+    <td><%= attachment.format %></td>
+    <td><%= link_to 'Download', download_attachment_path(attachment), :method => :get %></td>
+    <td><%= link_to 'Delete', attachment_path(attachment),
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <% end %>
+ </table>
+ <p align="center"><%= link_to 'New Upload', new_attachment_path %></p>
