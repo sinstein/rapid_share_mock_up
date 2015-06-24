@@ -1,0 +1,9 @@
+<div class="Form">
+<h2>Login</h2>
+<%= form_tag '/login' do %>
+  <p>Username:<br/> <%= text_field_tag :username %><p>
+  <p>Password:<br/> <%= password_field_tag :password %><p>
+  <%= submit_tag "Submit" %>
+<% end %>
+<p align="center"><%= link_to 'Home', root_path %></p>
+</div>

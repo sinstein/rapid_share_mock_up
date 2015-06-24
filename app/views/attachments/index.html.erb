@@ -1,18 +1,22 @@
-<h2 align="center"> Listing Files </h2>
-<table align="center" cellpadding="5">
+<h2> Listing Files </h2>
+<table>
   <tr>
-      <th align="left">Name</th>
-      <th align="left">Type</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th colspan="2">Operations</th>
   </tr>
   <% @attachments.each do |attachment| %>
   <tr>
     <td><%= attachment.name %></td>
-    <td><%= attachment.format %></td>
-    <td><%= link_to 'Download', download_attachment_path(attachment), :method => :get %></td>
-    <td><%= link_to 'Delete', attachment_path(attachment),
+    <td><%= attachment.format %></td> 
+    <td><%= link_to 'Download Link', download_user_attachment_path(params[:user_id],attachment) %></td>
+    <td><%= link_to 'Destroy', user_attachment_path(params[:user_id], attachment),
             method: :delete,
             data: { confirm: 'Are you sure?' } %></td>
   </tr>
   <% end %>
  </table>
- <p align="center"><%= link_to 'New Upload', new_attachment_path %></p>
+ <div class="footer">
+ <%= link_to 'New Upload', new_user_attachment_path %>
+ <%= link_to 'Logout', logout_path %>
+</div>
