@@ -1,42 +1,45 @@
 class AttachmentsController < ApplicationController
+  
+  before_action :authorize, except: :download
+
   def new
   end
   
   def index
-    @attachments = Attachment.all
+    @attachments = Attachment.where(:user_id => params[:user_id])
   end
 
   def create
+    @user = User.find(params[:user_id])
     @attachment = Attachment.new(params[:attachment => {:file => [ :original_filename ]}])
     uploaded_io = params[:attachment][:file]
+    @attachment.user_id = @user.id
     @attachment.name = params[:attachment][:file].original_filename
     @attachment.format = params[:attachment][:file].content_type
     @attachment.save
     File.open(Rails.root.join('public/data', @attachment.name), 'wb') do |file|
       file.write(uploaded_io.read)
     end
-    redirect_to @attachment
+    render "show"
   end
   
   def show
-    @attachment = Attachment.find(params[:id])
+    @user = User.find(params[:user_id])
+    @attachment = user.attachments.find(@user.id)
   end
 
   def download
-    @attachment = Attachment.find(params[:id])
+    @user = User.find(params[:user_id])
+    @attachment = @user.attachments.find(params[:id])
     path = Rails.root.join('public/data', @attachment.name)
     send_file path
   end
     
   def destroy
-    @attachment = Attachment.find(params[:id])
+    @user = User.find(params[:user_id])
+    @attachment = @user.attachments.find(params[:id])
     File.delete(Rails.root.join('public/data', @attachment.name))
     @attachment.destroy 
-    redirect_to attachments_path
-  end
-
-  private
-  def attachment_params
-    params.require(:attachment).permit! 
+    redirect_to user_attachments_path
   end
 end
