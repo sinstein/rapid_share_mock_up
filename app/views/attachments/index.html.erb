@@ -1,13 +1,12 @@
-<h2 align="center"> Listing Files </h2>
-<table align="center" cellpadding="5">
+<h2> Listing Files </h2>
+<table>
   <tr>
-      <th align="left">Relation</th>
-      <th align="left">Name</th>
-      <th align="left">Type</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th colspan="2">Operations</th>
   </tr>
   <% @attachments.each do |attachment| %>
   <tr>
-    <td><%= attachment.user_id %></td>
     <td><%= attachment.name %></td>
     <td><%= attachment.format %></td> 
     <td><%= link_to 'Download Link', download_user_attachment_path(params[:user_id],attachment) %></td>
@@ -17,5 +16,7 @@
   </tr>
   <% end %>
  </table>
- <p align="center"><%= link_to 'New Upload', new_user_attachment_path %></p>
- <p align="center"><%= link_to 'Logout', logout_path %></p>
+ <div class="footer">
+ <%= link_to 'New Upload', new_user_attachment_path %>
+ <%= link_to 'Logout', logout_path %>
+</div>
