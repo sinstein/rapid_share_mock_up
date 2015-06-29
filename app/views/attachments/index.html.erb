@@ -8,9 +8,9 @@
   <% @attachments.each do |attachment| %>
   <tr>
     <td><%= attachment.name %></td>
-    <td><%= attachment.format %></td> 
+    <td><%= attachment.format %></td>
     <td><%= link_to 'Download Link', download_user_attachment_path(params[:user_id],attachment) %></td>
-    <td><%= link_to 'Destroy', user_attachment_path(params[:user_id], attachment),
+    <td><%= button_to 'Delete', user_attachment_path(params[:user_id], attachment), :class => 'btn',
             method: :delete,
             data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -18,5 +18,4 @@
  </table>
  <div class="footer">
  <%= link_to 'New Upload', new_user_attachment_path %>
- <%= link_to 'Logout', logout_path %>
 </div>

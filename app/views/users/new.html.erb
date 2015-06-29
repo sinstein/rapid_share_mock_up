@@ -1,7 +1,7 @@
 <div class="Form">
 	<div>
 	  <h2> Sign up to Rapid Share</h2>
-	  
+
 	  <div class="errors">
 		  <% if @user.errors.full_messages.any? %>
 				<% @user.errors.full_messages.each do |error_message| %>
@@ -12,7 +12,7 @@
 
 		<div class="input">
 		  <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
-		    <p> Username:<br/> <%= f.text_field :username %></p>
+		    <p> Email:<br/> <%= f.text_field :email %></p>
 		    <p> Password:<br/> <%= f.password_field :password %></p>
 		    <p> Password Confirmation:<br/> <%= f.password_field :password_confirmation%> </p>
 		    <%= f.submit :Signup %>
