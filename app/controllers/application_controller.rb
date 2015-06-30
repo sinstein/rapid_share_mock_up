@@ -10,12 +10,18 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find(session[params[:user_id]]) if session[params[:user_id]]
+    @current_user ||= User.find(session["user_id"]) if session["user_id"]
   end
   helper_method :current_user
 
   def authorize
     redirect_to '/login' unless current_user
+  end
+
+  def check_login
+    if current_user
+      redirect_to user_attachments_path(current_user.id)
+    end
   end
 
 end

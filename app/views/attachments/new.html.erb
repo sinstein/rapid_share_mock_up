@@ -1,7 +1,18 @@
 <h2>Upload new file</h2>
-<%= form_for :attachment, url: user_attachments_path do |f| %>
-  <p align='center'><%= f.file_field :file %>
-  <%= f.submit %></p>
+
+<div class="errors">
+  <% if !@attachment.errors.empty? %>
+    <% @attachment.errors.full_messages.each do |error_message| %>
+      <p><%= error_message %></p>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="input">
+<%= form_for :attachment, multipart: true, url: user_attachments_path do |f| %>
+  <%= f.file_field :file %>
+  <%= f.submit %>
 <% end %>
+</div>
 
 <p align="center"><%= link_to 'View All Files', user_attachments_path %></p>

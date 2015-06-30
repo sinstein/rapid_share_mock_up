@@ -1,6 +1,6 @@
 class AttachmentsTable < ActiveRecord::Migration
   def change
-    create_table :articles do |t|
+    create_table :attachments do |t|
       t.string :name
       t.string :format
       t.integer :user_id

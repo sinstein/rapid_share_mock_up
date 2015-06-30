@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
 
   resources :users do
-    resources :attachments do 
-      get 'download', 
-      on: :member 
+    resources :attachments do
+      get 'download',
+      on: :member
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
@@ -14,8 +13,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
-
+  delete '/logout' => 'sessions#destroy'
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
   # Example of regular route:
