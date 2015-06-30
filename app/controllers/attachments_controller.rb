@@ -9,7 +9,7 @@ class AttachmentsController < ApplicationController
   def index
     @attachments = Attachment.where(:user_id => session["user_id"])
     if(@attachments.empty?)
-      redirect_to new_user_attachment_path
+      render "new"
     end
   end
 
