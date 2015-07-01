@@ -15,7 +15,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authorize
-    redirect_to '/login' unless current_user
+    if !params.empty? && params.key?(:user_id) && current_user.id.to_s != params[:user_id]
+      redirect_to login_path
+    end
   end
 
   def check_login

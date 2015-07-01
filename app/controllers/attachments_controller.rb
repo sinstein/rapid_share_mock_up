@@ -14,7 +14,7 @@ class AttachmentsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user.id)
     @attachment = Attachment.new(params[:attachment => {:file => [ :original_filename ]}])
 
     if params[:attachment].nil?
@@ -26,6 +26,7 @@ class AttachmentsController < ApplicationController
       @attachment.name = params[:attachment][:file].original_filename
       @attachment.format = params[:attachment][:file].content_type
       @attachment.alias = Time.now.to_i.to_s + @attachment.name
+      @attachment.size = uploaded_io.size.to_f
 
       if @attachment.validate_file_size(uploaded_io) && @attachment.save
         File.open(Rails.root.join('public/data', @attachment.alias), 'wb') do |file|
@@ -39,12 +40,12 @@ class AttachmentsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user.id)
     @attachment = user.attachments.find(@user.id)
   end
 
   def download
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user.id)
     if(!Attachment.exists?(:id => params[:id]))
       flash[:alert] = "File not found!"
       redirect_to user_attachments_path
@@ -56,7 +57,7 @@ class AttachmentsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user.id)
     if(!Attachment.exists?(:id => params[:id]))
       flash[:alert] = "File not found!"
       redirect_to user_attachments_path

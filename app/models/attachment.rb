@@ -1,10 +1,14 @@
 class Attachment < ActiveRecord::Base
   belongs_to :user
+
+  validates :name, presence: true, allow_nil: false
   validate :file_format
 
   def file_format
-    whitelist = ["pdf","png","jpg","jpeg","rb","txt","azw",""]
-    ext = self.name.split('.')[-1]
+    whitelist = ["pdf","png","jpg","jpeg","rb","txt","azw"]
+    if(!self.name.nil?)
+      ext = self.name.split('.')[-1]
+    end
     if !whitelist.include? ext
       errors.add(:file , " format not supported!")
     end
@@ -18,7 +22,4 @@ class Attachment < ActiveRecord::Base
     end
     true
   end
-
-  private
-  def
 end

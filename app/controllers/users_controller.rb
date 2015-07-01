@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_login, only: [:new ,:create]
-  
+
   def new
   	@user = User.new
   end
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def show
-  	@user = User.find(params[:id])
+  	@user = User.find(current_user.id)
   end
 
   def update
